@@ -24,7 +24,7 @@ mongoose.connection.on("disconnected", () => {
 if (process.platform === "win32") {
   const r1 = readLine.createInterface({
     input: process.stdin,
-    output: process.stdout,
+    output: process.stdout
   });
   r1.on("SIGINT", () => {
     process.emit("SIGINT");
@@ -60,6 +60,8 @@ process.on("SIGTERM", () => {
 // Make initial connection to DB
 connect();
 
-// Import Mongoose schema
+// Import Mongoose schemas
 require("./travlr");
+require("./user");
+
 module.exports = mongoose;

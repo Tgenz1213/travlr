@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
+import { Router } from "@angular/router";
 
-import { TripDataService } from '../services/trip-data.service';
+import { TripDataService } from "../services/trip-data.service";
+import { Trip } from "../models/trip";
 
 @Component({
-  selector: 'app-add-trip',
+  selector: "app-add-trip",
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './add-trip.component.html',
-  styleUrl: './add-trip.component.css',
+  templateUrl: "./add-trip.component.html",
+  styleUrl: "./add-trip.component.css"
 })
 export class AddTripComponent implements OnInit {
   public addForm!: FormGroup;
@@ -25,14 +26,14 @@ export class AddTripComponent implements OnInit {
   ngOnInit(): void {
     this.addForm = this.formBuilder.group({
       _id: [],
-      code: ['', Validators.required],
-      name: ['', Validators.required],
-      length: ['', Validators.required],
-      start: ['', Validators.required],
-      resort: ['', Validators.required],
-      perPerson: ['', Validators.required],
-      image: ['', Validators.required],
-      description: ['', Validators.required],
+      code: ["", Validators.required],
+      name: ["", Validators.required],
+      length: ["", Validators.required],
+      start: ["", Validators.required],
+      resort: ["", Validators.required],
+      perPerson: ["", Validators.required],
+      image: ["", Validators.required],
+      description: ["", Validators.required]
     });
   }
 
@@ -40,13 +41,13 @@ export class AddTripComponent implements OnInit {
     this.submitted = true;
     if (this.addForm.valid) {
       this.tripService.addTrip(this.addForm.value).subscribe({
-        next: (data: any) => {
+        next: (data: Trip) => {
           console.log(data);
-          this.router.navigate(['']);
+          this.router.navigate([""]);
         },
-        error: (error: any) => {
-          console.log('Error: ' + error);
-        },
+        error: (error: Error) => {
+          console.log("Error: " + error);
+        }
       });
     }
   }
